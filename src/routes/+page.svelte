@@ -1,18 +1,45 @@
 <script>
-    let recentSeas = ["C:/Sea"]
+    let openSea = async () => {
+        try {
+            let directory = await window.showDirectoryPicker({
+                startIn: 'desktop'
+            });
+
+            for await (const entry of directory.values()) {
+                let newEl = document.createElement('div');
+                newEl.innerHTML = `<strong>${entry.name}</strong> - ${entry.kind}`;
+                document.body.append(newEl);
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    }
 </script>
 
-<div>
+<div id="main">
     <h1>Quanta</h1>
-    {#each recentSeas as location}
-        <a href="">{location}</a>
-    {/each}
-    <button>Make a new Sea</button>
-    <button>Open a Sea</button>
+    <p id="version">Version 0.0.1</p>
+    <div class="option">
+        <div>
+            <h2>Open a folder as a sea</h2>
+            <p>You can use a existing folder to convert into a Quanta sea</p>
+        </div>
+        <button on:click={openSea}>Open</button>
+    </div>
+    <div class="divider"></div>
+    <div class="option">
+        <div>
+            <h2>Create a new sea</h2>
+            <p>Create a new Quanta sea under a folder</p>
+        </div>
+        <button>Create</button>
+    </div>
 </div>
 
 <style>
-    div {
+    #main {
+        height: 75vh;
+        width: 33vw;
         display: flex;
         flex-direction: column;
         background-color: #c4a1ff;
@@ -28,15 +55,49 @@
         box-shadow: 4px 6px;
     }
     h1 {
+        margin-top: 2rem;
+        display: inline-block;
         font-family: 'Rubik', sans-serif;
         font-weight: 900;
-        font-size: 5vw;
-    }
-    a {
+        font-size: 4rem;
         text-align: center;
-        font-family: 'Rubik', sans-serif;
+        line-height: 4rem;
+    }
+    #version {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .divider {
+        height: 1px;
+        background-color: #000;
+        margin: 1rem;
     }
     button {
-        font-family: 'Rubik', sans-serif;
+        height: 2rem;
+        background: #e3dff2;
+        border-color: #000;
+        border-width: 2px;
+        border-style: solid;
+        border-radius: .5rem;
+        box-shadow: 2px 3px;
+        cursor: pointer;
+    }
+    .option {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .option > div {
+        max-width: 20rem;
+    }
+    .option > div > p {
+        text-align: left;
+    }
+    .option > button {
+        margin: auto;
+        margin-right: 0;
+        width: 6rem;
     }
 </style>
