@@ -1,6 +1,7 @@
 <script>
     let openSea = async () => {
         try {
+            // @ts-ignore
             let directory = await window.showDirectoryPicker({
                 startIn: 'desktop'
             });
@@ -17,6 +18,7 @@
 </script>
 
 <div id="main">
+    <img src="../canvas.png" alt="">
     <h1>Quanta</h1>
     <p id="version">Version 0.0.1</p>
     <div class="option">
@@ -37,6 +39,12 @@
 </div>
 
 <style>
+    img {
+        width: 10vw;
+        margin-left: auto;
+        margin-right: auto;
+        filter: brightness(0) saturate(2000%) contrast(2000%);
+    }
     #main {
         height: 75vh;
         width: 33vw;
