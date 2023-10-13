@@ -1,6 +1,7 @@
 <script>
     import {device} from '$lib/utils/device.js';
     import Mobile from './mobile.svelte';
+    import { goto } from '$app/navigation';
 
     let openSea = async () => {
         try {
@@ -9,11 +10,8 @@
                 startIn: 'desktop'
             });
 
-            for await (const entry of directory.values()) {
-                let newEl = document.createElement('div');
-                newEl.innerHTML = `<strong>${entry.name}</strong> - ${entry.kind}`;
-                document.body.append(newEl);
-            }
+            goto("./"+directory.name+"/");
+
         } catch(e) {
             console.log(e);
         }
@@ -24,7 +22,7 @@
     <Mobile/>
 {:else}
     <div id="main">
-        <img src="../canvas.png" alt="">
+        <img src="../logo.png" alt="">
         <h1>Qatalyst</h1>
         <p id="version">Version 0.0.1</p>
         <div class="option">
